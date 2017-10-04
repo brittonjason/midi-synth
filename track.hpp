@@ -2,14 +2,15 @@
 #define TRACK_HPP
 
 #include <list>
+#include <iterator>
 
 #include "event.hpp"
 
-/** A Track represents a sequence of Events ordered by thier MIDI tock time. 
+/** A Track represents a sequence of Events ordered by their MIDI tick time. 
  * Events can be added to the Track based on type of event. Events can be accessed
  * using a constant iterator in order, first to last. 
  */
-class Track{
+class Track {
 
 public:
 
@@ -17,6 +18,7 @@ public:
    * ++, *, and -> (i.e. it is a forward iterator).
    */
   // TODO typedef ????? ConstIteratorType;
+  typedef int ConstIteratorType;
   
 public:
 

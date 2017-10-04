@@ -42,8 +42,34 @@ public:
    * \param deltaT the time increment in seconds.
    */
   double sample(double deltaT);
+  // MIDI time is represented by a tick integer
+  // T = microseconds per beat (defined by tempo)
+  // M = MIDI clock ticks per beat (defined by MIDI file)
+  // T' = (T / 10^6) seconds per beat
+  // hence seconds per MIDI clock tick = T' / M
+
+  // Process any new Track events that became active since the last sample time
+  // Sum the waveforms for the currently active notes
+  // Must maintain a container of notes at the current time
+  //  note number
+  //  note velocity
+  //  time turned on
+
+  // Use a track iterator to process all events up to the current sample time
+
+  // Probably want to define private helper functions to:
+  //  convert a note number to a frequency
+  //  determine the length of a note
+  //  evaluate the envelope functions
+  //  sum the active notes
 
 private:
+
+  // State
+  //  container of active notes
+  //  for each active note: note number, time turned on, note velocity
+  //  event iterator
+  //  sample time
 
   // TODO
 };

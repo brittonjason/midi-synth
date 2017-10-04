@@ -105,6 +105,17 @@ public:
   NoteEvent asNoteEvent() const;
 
 private:
+
+  enum EventTypes {tempo, endtrack, note} eventType_;
+
+  union Events {
+    NoteEvent noteEvent;
+    TempoEvent tempoEvent;
+    EndTrackEvent endTrackEvent;
+    Events() {EndTrackEvent();}
+    ~Events() {}
+  } event_;
+
   // TODO
 };
 
