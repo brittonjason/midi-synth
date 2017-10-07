@@ -18,7 +18,7 @@ public:
    * ++, *, and -> (i.e. it is a forward iterator).
    */
   // TODO typedef ????? ConstIteratorType;
-  typedef int ConstIteratorType;
+  typedef std::list<MIDIEvent>::const_iterator ConstIteratorType;
   
 public:
 
@@ -57,7 +57,9 @@ public:
   
 private:
 
-  // TODO
+  std::list<MIDIEvent> eventList;
+  intmax_t ticksPerBeat;
+
 };
 
 /** A list of tracks. */
