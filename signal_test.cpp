@@ -4,5 +4,5 @@
 
 #include "signal.hpp"
 
-TEST_CASE( "TODO", "[signal]" ) {
+TEST_CASE( "TODO2", "[signal]" ) {
 }

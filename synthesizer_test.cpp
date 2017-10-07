@@ -5,5 +5,5 @@
 #include "track.hpp"
 #include "synthesizer.hpp"
 
-TEST_CASE( "TODO", "[synthesizer]" ) { 
+TEST_CASE( "TODO3", "[synthesizer]" ) { 
 }

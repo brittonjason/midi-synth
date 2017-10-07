@@ -18,7 +18,7 @@ public:
   intmax_t getTempo() const;
 
 private:
-  // TODO
+  intmax_t tempo;
 };
 
 /** An EndTrackEvent. This event indicates that the track has ended and the
@@ -56,7 +56,9 @@ public:
   int8_t getNoteVelocity() const;
 
 private:
-  // TODO
+  bool noteOn;
+  int8_t noteNum;
+  int8_t noteVel;
 };
 
 /** A MIDI Event holds one of a TempoEvent, EndTrackEvent, or NoteEvent and an
@@ -65,7 +67,7 @@ private:
 class MIDIEvent{  
 public:
 
-  /** Construct a MIDI event holding a TempEvent at ticktime.
+  /** Construct a MIDI event holding a TempoEvent at ticktime.
    */
   MIDIEvent(TempoEvent e, intmax_t ticktime);
 
@@ -116,7 +118,7 @@ private:
     ~Events() {}
   } event_;
 
-  // TODO
+  intmax_t tickTime;
 };
 
 #endif
