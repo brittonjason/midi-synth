@@ -22,6 +22,8 @@ TEST_CASE("Test adding events to a track and iterator.", "[Track]") {
 	REQUIRE((*iterator).isEndTrackEvent() == true);
 	iterator++;
 	REQUIRE((*iterator).isTempoEvent() == true);
-	iterator = t.end();
+	iterator++;
 	REQUIRE((*iterator).isNoteEvent() == true);
+	Track::ConstIteratorType iterator2 = t.end();
+	REQUIRE(iterator != iterator2);
 }
