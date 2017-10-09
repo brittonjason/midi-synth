@@ -9,7 +9,7 @@ class Signal
 {
 public:
 
-  /** Construct a Signal given a sampling rate is samples-per-second (Hz). The default rate is
+  /** Construct a Signal given a sampling rate in samples-per-second (Hz). The default rate is
    * 44.1 kHz.
    * \param sampleRate the sampling rate in Hz
    */
