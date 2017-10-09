@@ -5,6 +5,7 @@
 
 #include "track.hpp"
 #include "signal.hpp"
+#include "instrument.hpp"
 
 /** \fn Synthesize a Track into a Signal.
  * Returned signal is empty on failure.

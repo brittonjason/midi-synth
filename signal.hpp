@@ -2,8 +2,9 @@
 #define SIGNAL_HPP
 
 #include <cstdint>
+#include <vector>
 
-/** \brief A Signal holds equally spaceed samples of type double. 
+/** \brief A Signal holds equally spaced samples of type double. 
  */
 class Signal
 {
@@ -38,7 +39,9 @@ public:
   
   
 private:
-  // TODO
+  unsigned int sr;
+  std::size_t numSamples;
+  std::vector<double> samples;
 };
 
 

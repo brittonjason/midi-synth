@@ -63,7 +63,7 @@ public:
   //  evaluate the envelope functions
   //  sum the active notes
 
-private:
+private:  
 
   // State
   //  container of active notes
@@ -71,7 +71,14 @@ private:
   //  event iterator
   //  sample time
 
-  // TODO
+  Track tr;
+  Track::ConstIteratorType iterator;
+  double realTimeElapsed;
+  bool EndTrackEventProcessed = false;
+  intmax_t MClockRate;
+  intmax_t tempo;
+
+  double freq(int8_t noteNum);
 };
 
 

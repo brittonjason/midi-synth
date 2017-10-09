@@ -17,7 +17,6 @@ public:
   /** Typdef for iterator type. This object should support the operators
    * ++, *, and -> (i.e. it is a forward iterator).
    */
-  // TODO typedef ????? ConstIteratorType;
   typedef std::list<MIDIEvent>::const_iterator ConstIteratorType;
   
 public:
