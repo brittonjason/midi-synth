@@ -8,9 +8,7 @@ Signal synthesize(Track & track) {
 	Signal signal;
 	DefaultInstrument instrument(track);
 	while (!instrument.halted()) {
-		double val = instrument.sample(1/44100.0);
-		//std::cout << val << "\n";
-		signal.push_back(val);
+		signal.push_back(instrument.sample(1/44100.0));
 	}
 	return signal;
 }
