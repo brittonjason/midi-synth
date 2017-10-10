@@ -27,7 +27,8 @@ bool write_wav(Signal & sound, const std::string &filename) {
 	outStream.write(reinterpret_cast<std::fstream::char_type*>(&Subchunk2Size), sizeof Subchunk2Size);
 
 	for (int i = 0; i < numSamples; i++) {
-		std::size_t f = sound[i];
+		int16_t f = sound[i];
+		//std::cout << sound[i] << "\n";
 		outStream.write(reinterpret_cast<std::fstream::char_type*>(&f), sizeof f);
 	}
 

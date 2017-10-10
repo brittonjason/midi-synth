@@ -3,6 +3,10 @@
 #ifndef INSTRUMENT_HPP
 #define INSTRUMENT_HPP
 
+#include <vector>
+#include <cmath>
+#include <iostream>
+
 #include "event.hpp"
 #include "track.hpp"
 
@@ -63,6 +67,34 @@ public:
   //  evaluate the envelope functions
   //  sum the active notes
 
+  class Note {
+
+  public:
+
+    Note(int8_t noteNum, double timeStart, int8_t velocity) {
+      noteNumber = noteNum;
+      timeOn = timeStart;
+      vel = velocity;
+      // dur = duration;
+    };
+
+    int8_t getNoteNum() {return noteNumber;};
+
+    double getTimeStart() {return timeOn;};
+
+    int8_t getVelocity() {return vel;};
+
+    // double getDuration() {return dur;};
+
+  private:
+
+    int8_t noteNumber;
+    double timeOn;
+    int8_t vel;
+    // double dur;
+
+  };
+
 private:  
 
   // State
@@ -77,8 +109,16 @@ private:
   bool EndTrackEventProcessed = false;
   intmax_t MClockRate;
   intmax_t tempo;
+  std::vector<Note> activeNotes;
 
   double freq(int8_t noteNum);
+
+  double sumActiveNotes(double time);
+
+  // double noteLength(Track::ConstIteratorType it, double startTime);
+
+  double getEnvelope(Note n, double time);
+
 };
 
 

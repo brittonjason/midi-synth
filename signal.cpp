@@ -18,7 +18,9 @@ unsigned int Signal::getSampleRate() {
 * when quantized.
 */
 void Signal::normalize() {
-
+	for (int i = 0; i < numSamples; i++) {
+		
+	}
 }
 
 /** Add a sample to the signal. 

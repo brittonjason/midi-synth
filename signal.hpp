@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <iostream>
 
 /** \brief A Signal holds equally spaced samples of type double. 
  */

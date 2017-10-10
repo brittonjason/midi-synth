@@ -1,5 +1,4 @@
 #include "instrument.hpp"
-#include <iostream>
 
 /** Construct a Default Instrument using the specified track.
 * \param track the track to read events from. 
@@ -9,6 +8,7 @@ DefaultInstrument::DefaultInstrument(const Track & track) {
 	realTimeElapsed = 0;
 	iterator = tr.begin();
 	MClockRate = tr.getTicksPerBeat();
+	std::cout << MClockRate << "\n";
 	tempo = 500000;
 }
 
@@ -69,6 +69,10 @@ double DefaultInstrument::sample(double deltaT) {
 			}
 			if ((*iterator).isNoteEvent()) {
 				std::cout << "note event for note " << freq((*iterator).asNoteEvent().getNoteNumber()) << "\n";
+				if ((*iterator).asNoteEvent().getNoteOn()) {
+					activeNotes.push_back(Note((*iterator).asNoteEvent().getNoteNumber(), eventRealTime, 
+						(*iterator).asNoteEvent().getNoteVelocity()));
+				}
 			}
 			iterator++;
 		}
@@ -77,7 +81,57 @@ double DefaultInstrument::sample(double deltaT) {
 		}
 	}
 
-	return 0;
+	return sumActiveNotes(realTimeElapsed);
+}
+
+// double DefaultInstrument::noteLength(Track::ConstIteratorType it, double startTime) {
+// 	int8_t note = (*it).asNoteEvent().getNoteNumber();
+// 	it++;
+// 	while (it != tr.end()) {
+// 		if ((*it).asNoteEvent().getNoteNumber() == note && (*it).asNoteEvent().getNoteOn() == false)
+// 			return ((*it).getTickTime() * tempo / 1000000.0 / MClockRate) - startTime;
+// 	}
+// 	return 0;
+// }
+
+double DefaultInstrument::getEnvelope(Note n, double time) {
+	double noteLength = 0.25;
+	double t0 = 0 * noteLength;
+	double t1 = 0.25 * noteLength;
+	double t2 = 0.45 * noteLength;
+	double t3 = 0.8 * noteLength;
+	double t4 = 1 * noteLength;
+	double S = 0.8;
+
+	double currentTime = time - n.getTimeStart();
+
+	if (currentTime >= t0 && currentTime <= t1) {
+		return (1 / t1 * currentTime);
+	}
+	else if (currentTime > t1 && currentTime <= t2) {
+		return 1 - (currentTime - t1);
+	}
+	else if (currentTime > t2 && currentTime <= t3) {
+		return S;
+	}
+	else if (currentTime > t3 && currentTime <= t4) {
+		return S - ((S / (t4 - t3)) * (currentTime - t3));
+	}
+	else
+		return 0;
+}
+
+double DefaultInstrument::sumActiveNotes(double time) {
+	double val = 0;
+
+	for (Note n : activeNotes) {
+		double noteVal = 200 * n.getVelocity() * getEnvelope(n, time) * 
+			sin(2 * M_PI * freq(n.getNoteNum()) * (time - n.getTimeStart()));
+		//std::cout << (time - n.getTimeStart()) << "\n";
+		val += noteVal;
+	}
+	//std::cout << val << "\n";
+	return val;
 }
 
 double DefaultInstrument::freq(int8_t noteNum) {
