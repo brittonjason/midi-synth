@@ -64,11 +64,13 @@ double DefaultInstrument::sample(double deltaT) {
 				break;
 			}
 			if ((*iterator).isTempoEvent()) {
-				std::cout << "tempo changed to " << tempo << "\n";
 				tempo = (*iterator).asTempoEvent().getTempo();
+				std::cout << "tempo changed to " << tempo << " at time " 
+					<< eventRealTime << "\n";
 			}
 			if ((*iterator).isNoteEvent()) {
-				std::cout << "note event for note " << freq((*iterator).asNoteEvent().getNoteNumber()) << "\n";
+				std::cout << "note event " << (*iterator).asNoteEvent().getNoteOn() << " for note " << freq((*iterator).asNoteEvent().getNoteNumber()) 
+					<< " at time " << eventRealTime << "\n";
 				if ((*iterator).asNoteEvent().getNoteOn()) {
 					activeNotes.push_back(Note((*iterator).asNoteEvent().getNoteNumber(), eventRealTime, 
 						(*iterator).asNoteEvent().getNoteVelocity()));
@@ -80,8 +82,12 @@ double DefaultInstrument::sample(double deltaT) {
 			eventsProcessed = true;
 		}
 	}
-
-	return sumActiveNotes(realTimeElapsed);
+	double v = sumActiveNotes(realTimeElapsed);
+	if (realTimeElapsed < 0.15) {
+		std::cout << "time: " << realTimeElapsed <<  " value: " << v << "\n";
+		std::cout << activeNotes.size() << "\n";
+	}		
+	return v;
 }
 
 // double DefaultInstrument::noteLength(Track::ConstIteratorType it, double startTime) {
@@ -127,7 +133,7 @@ double DefaultInstrument::sumActiveNotes(double time) {
 	for (Note n : activeNotes) {
 		double noteVal = 200 * n.getVelocity() * getEnvelope(n, time) * 
 			sin(2 * M_PI * freq(n.getNoteNum()) * (time - n.getTimeStart()));
-		//std::cout << (time - n.getTimeStart()) << "\n";
+		//std::cout << "time: " << (time - n.getTimeStart()) << "\n";
 		val += noteVal;
 	}
 	//std::cout << val << "\n";

@@ -51,9 +51,9 @@ void Track::addTempoEvent(intmax_t tempo, intmax_t tick_time) {
 */
 void Track::addNoteEvent(uint8_t code, uint8_t data1, uint8_t data2, intmax_t tick_time) {
 	bool on;
-	if (code == 8)
-		on = true;
 	if (code == 9)
+		on = true;
+	if (code == 8)
 		on = false;
 	eventList.push_back(MIDIEvent(NoteEvent(on, data1, data2), tick_time));
 }
