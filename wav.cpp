@@ -6,7 +6,7 @@
  * \param filename the filename to write to.
  */
 bool write_wav(Signal & sound, const std::string &filename) {
-	std::ofstream outStream = std::ofstream(filename, std::ios::binary);
+	std::ofstream outStream = std::ofstream(filename + "-0.wav", std::ios::binary);
 
 	std::size_t numSamples = sound.size();
 	int32_t Subchunk2Size = numSamples * NumChannels * BitsPerSample / 8;
