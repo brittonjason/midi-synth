@@ -69,8 +69,8 @@ double DefaultInstrument::sample(double deltaT) {
 					<< eventRealTime << "\n";
 			}
 			if ((*iterator).isNoteEvent()) {
-				std::cout << "note event " << (*iterator).asNoteEvent().getNoteOn() << " for note " << freq((*iterator).asNoteEvent().getNoteNumber()) 
-					<< " at time " << eventRealTime << "\n";
+				std::cout << "note event " << (*iterator).asNoteEvent().getNoteOn() << " for note " 
+					<< freq((*iterator).asNoteEvent().getNoteNumber()) << " at time " << eventRealTime << "\n";
 				if ((*iterator).asNoteEvent().getNoteOn()) {
 					activeNotes.push_back(Note((*iterator).asNoteEvent().getNoteNumber(), eventRealTime, 
 						(*iterator).asNoteEvent().getNoteVelocity()));
@@ -83,10 +83,10 @@ double DefaultInstrument::sample(double deltaT) {
 		}
 	}
 	double v = sumActiveNotes(realTimeElapsed);
-	if (realTimeElapsed < 0.15) {
-		std::cout << "time: " << realTimeElapsed <<  " value: " << v << "\n";
-		std::cout << activeNotes.size() << "\n";
-	}		
+	// if (realTimeElapsed < 0.15) {
+	// 	std::cout << "time: " << realTimeElapsed <<  " value: " << v << "\n";
+	// 	std::cout << activeNotes.size() << "\n";
+	// }
 	return v;
 }
 
