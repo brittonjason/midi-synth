@@ -19,12 +19,6 @@ Track::ConstIteratorType Track::begin() const {
 
 /** Get iterator to end of event sequence. */
 Track::ConstIteratorType Track::end() const {
-	// Track::ConstIteratorType iter;
-	// for (Track::ConstIteratorType i = eventList.begin(); i != eventList.end(); i++) {
-	// 	iter = i;
-	// }
-	// return iter;
-
 	return eventList.end();
 }
 

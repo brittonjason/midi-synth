@@ -83,22 +83,8 @@ double DefaultInstrument::sample(double deltaT) {
 		}
 	}
 	double v = sumActiveNotes(realTimeElapsed);
-	// if (realTimeElapsed < 0.15) {
-	// 	std::cout << "time: " << realTimeElapsed <<  " value: " << v << "\n";
-	// 	std::cout << activeNotes.size() << "\n";
-	// }
 	return v;
 }
-
-// double DefaultInstrument::noteLength(Track::ConstIteratorType it, double startTime) {
-// 	int8_t note = (*it).asNoteEvent().getNoteNumber();
-// 	it++;
-// 	while (it != tr.end()) {
-// 		if ((*it).asNoteEvent().getNoteNumber() == note && (*it).asNoteEvent().getNoteOn() == false)
-// 			return ((*it).getTickTime() * tempo / 1000000.0 / MClockRate) - startTime;
-// 	}
-// 	return 0;
-// }
 
 double DefaultInstrument::getEnvelope(Note n, double time) {
 	double noteLength = 0.25;
@@ -133,10 +119,8 @@ double DefaultInstrument::sumActiveNotes(double time) {
 	for (Note n : activeNotes) {
 		double noteVal = 200 * n.getVelocity() * getEnvelope(n, time) * 
 			sin(2 * M_PI * freq(n.getNoteNum()) * (time - n.getTimeStart()));
-		//std::cout << "time: " << (time - n.getTimeStart()) << "\n";
 		val += noteVal;
 	}
-	//std::cout << val << "\n";
 	return val;
 }
 

@@ -67,6 +67,8 @@ public:
   //  evaluate the envelope functions
   //  sum the active notes
 
+  double freq(int8_t noteNum);
+
   class Note {
 
   public:
@@ -111,7 +113,7 @@ private:
   intmax_t tempo;
   std::vector<Note> activeNotes;
 
-  double freq(int8_t noteNum);
+  
 
   double sumActiveNotes(double time);
 
